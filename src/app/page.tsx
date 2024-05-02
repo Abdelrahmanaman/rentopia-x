@@ -13,34 +13,36 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <section className="mx-auto max-w-6xl space-y-4 pb-10">
-      <div className="flex grid-cols-2 flex-wrap  justify-center gap-20 space-y-4 lg:grid">
-        <div className="w-full space-y-4">
-          <h1 className="mt-10 w-48 font-semibold">
-            The most afforadable place to stay in Le Mans
-          </h1>
-          <span className="mt-4 inline-block text-2xl font-semibold">
-            Flexibility and options to suit your lifestyle.
-          </span>
-          <p className="w-full text-justify lg:max-w-80">
-            You need it? We got it. We make finding your next home easy,
-            comfortable, and simple. From our happiness guarantee to our
-            selective roommate finder option. We provide you the flexibility
-            that you most desire.
-          </p>
-        </div>
-        <div className="relative h-96 w-full md:w-full lg:w-full">
-          <Image
-            priority
-            className="block size-full object-cover"
-            src={"/home.jpg"}
-            fill
-            sizes="100"
-            alt="Home Page"
-          />
+    <section className="px-2 md:px-0">
+      <div className="mx-auto max-w-6xl space-y-4 pb-10">
+        <div className="flex grid-cols-2 flex-wrap  justify-center gap-20 space-y-4 lg:grid">
+          <div className="w-full space-y-4">
+            <h1 className="mt-10 w-48 font-semibold">
+              The most afforadable place to stay in Le Mans
+            </h1>
+            <span className="mt-4 inline-block text-2xl font-semibold">
+              Flexibility and options to suit your lifestyle.
+            </span>
+            <p className="w-full text-justify lg:max-w-80">
+              You need it? We got it. We make finding your next home easy,
+              comfortable, and simple. From our happiness guarantee to our
+              selective roommate finder option. We provide you the flexibility
+              that you most desire.
+            </p>
+          </div>
+          <div className="relative h-96 w-full md:w-full lg:w-full">
+            <Image
+              priority
+              className="block size-full object-cover"
+              src={"/home.jpg"}
+              fill
+              sizes="100"
+              alt="Home Page"
+            />
+          </div>
         </div>
       </div>
-      <div className="flex justify-center md:justify-start">
+      <div className="mx-auto flex max-w-6xl justify-center md:justify-start">
         <Link
           className="inline-block rounded-md border border-primary bg-primary p-3 text-white hover:bg-white hover:text-primary"
           href={"/appartments"}
@@ -48,10 +50,17 @@ export default function Home() {
           Search Apartments
         </Link>
       </div>
-      <h2 className="text-center">
-        minimum living cost takes care of everything
+      <h2
+        className="mx-auto my-4
+      max-w-6xl text-2xl font-semibold"
+      >
+        <span className="underline decoration-orange-500 underline-offset-4">
+          {" "}
+          Minimum living cost
+        </span>{" "}
+        takes care of everything
       </h2>
-      <div className="flex grid-cols-2 flex-wrap  justify-center gap-20 space-y-4 lg:grid">
+      <div className="mx-auto flex max-w-6xl grid-cols-2 flex-wrap  justify-center gap-20 space-y-4 lg:grid">
         <div className="relative h-96 w-full md:w-full lg:w-full">
           <Image
             priority
@@ -101,16 +110,18 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <article className="flex itemce grid-cols-2 flex-wrap justify-center gap-x-4 bg-primary py-4 text-white lg:grid">
-        <div className="relative space-y-4">
-          <Quote className=" size-14 rotate-180 text-white" />
-          <ReviewSlider />
-          <div></div>
+      <article className=" my-6 bg-primary">
+        <div className="mx-auto flex max-w-6xl grid-cols-2 flex-wrap   justify-center gap-x-4 bg-primary py-4 text-white lg:grid">
+          <div className="relative space-y-4  ">
+            <Quote className=" size-14 rotate-180 text-white" />
+            <ReviewSlider />
+            <div></div>
+          </div>
+          <video width="900" height="900" className="block" controls>
+            <source src="vid.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
-        <video width="900" height="900" className="block" controls>
-          <source src="vid.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
       </article>
     </section>
   );

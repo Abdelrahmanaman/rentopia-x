@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .snap-x {
   scroll-snap-type: x mandatory;
 }
-
-
