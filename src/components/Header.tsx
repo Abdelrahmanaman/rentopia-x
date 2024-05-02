@@ -9,7 +9,7 @@ export default function Header() {
     setMenuOpen((prev) => !prev);
   };
   return (
-    <header className="bg-primary p-6 text-white">
+    <header className="bg-main p-6 text-white">
       <nav className="mx-auto flex max-w-6xl items-center justify-between">
         <Link className="text-2xl" href={"/"}>
           Rentopia
@@ -23,7 +23,7 @@ export default function Header() {
             )}
           </button>
           <ul
-            className={`${menuOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-10 opacity-0 md:hidden"} absolute -right-3 top-14 flex h-44 w-44 flex-col items-center justify-center gap-4 bg-primary transition-all duration-300`}
+            className={`${menuOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-10 opacity-0 md:hidden"} absolute -right-3 top-14 flex h-44 w-44 flex-col items-center justify-center gap-4 bg-main transition-all duration-300`}
           >
             <li>
               <Link

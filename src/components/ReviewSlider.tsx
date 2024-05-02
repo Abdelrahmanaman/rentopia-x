@@ -38,7 +38,7 @@ export default function ReviewSlider() {
             </div>
             <div className="flex flex-col text-sm font-semibold text-white">
               Harry Kane{" "}
-              <span className="block text-xs font-normal text-secondary">
+              <span className="block text-xs font-normal text-secbg-sec">
                 {" "}
                 Property Owner
               </span>
@@ -65,7 +65,7 @@ export default function ReviewSlider() {
             </div>
             <div className="flex flex-col text-sm font-semibold text-white">
               Harry Kane{" "}
-              <span className="block text-xs font-normal text-secondary">
+              <span className="block text-xs font-normal text-secbg-sec">
                 {" "}
                 Property Owner
               </span>
@@ -92,7 +92,7 @@ export default function ReviewSlider() {
             </div>
             <div className="flex flex-col text-sm font-semibold text-white">
               Harry Kane{" "}
-              <span className="block text-xs font-normal text-secondary">
+              <span className="block text-xs font-normal text-secbg-sec">
                 {" "}
                 Property Owner
               </span>
@@ -102,15 +102,15 @@ export default function ReviewSlider() {
       </ul>
       <div className="flex justify-center gap-2">
         <button
-          className={`size-3 rounded-full  ${slideIndex === 0 ? "bg-gray-200" : "bg-secondary/40"}`}
+          className={`size-3 rounded-full  ${slideIndex === 0 ? "bg-gray-200" : "bg-sec/40"}`}
           onClick={() => handleSlideChange(0)}
         ></button>
         <button
-          className={`size-3 rounded-full  ${slideIndex === 1 ? "bg-gray-200" : "bg-secondary/40"}`}
+          className={`size-3 rounded-full  ${slideIndex === 1 ? "bg-gray-200" : "bg-sec/40"}`}
           onClick={() => handleSlideChange(1)}
         ></button>
         <button
-          className={`size-3 rounded-full  ${slideIndex === 2 ? "bg-gray-200" : "bg-secondary/40"}`}
+          className={`size-3 rounded-full  ${slideIndex === 2 ? "bg-gray-200" : "bg-sec/40"}`}
           onClick={() => handleSlideChange(2)}
         ></button>
       </div>

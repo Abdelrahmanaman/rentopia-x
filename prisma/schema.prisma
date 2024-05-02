@@ -1,0 +1,61 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  name       String
+  email      String       @unique
+  password   String
+  favourites Favourite[]
+  history    History[]
+  apartments Apartment[]
+
+  @@map("users")
+}
+
+model Apartment {
+  id          Int          @id @default(autoincrement())
+  address     String
+  city        String
+  rooms       Int
+  wifi        Boolean
+  tv          Boolean
+  description String
+  images      String[]
+  favourites  Favourite[]
+  history     History[]
+  owner       User       @relation(fields: [ownerId], references: [id])
+  ownerId     Int         
+
+  @@map("apartments")
+}
+
+model Favourite {
+ id          Int        @id @default(autoincrement())
+ user        User       @relation(fields: [userId], references: [id])
+ userId      Int
+ apartment   Apartment @relation(fields: [apartmentId], references: [id])
+ apartmentId Int
+
+ @@unique([userId, apartmentId])
+ @@map("favourites")
+}
+
+
+model History {
+ id              Int        @id @default(autoincrement())
+ visit_date      DateTime  
+ user            User       @relation(fields: [userId], references: [id])
+ userId          Int
+ apartment       Apartment @relation(fields: [apartmentId], references: [id])
+ apartmentId     Int
+
+ @@map("history")
+}
