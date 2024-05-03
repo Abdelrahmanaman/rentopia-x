@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState, useRef } from "react";
-export default function ReviewSlider() {
+export default function HeroReview() {
   const [slideIndex, setSlideIndex] = useState(0);
   const sliderRef = useRef<HTMLUListElement>(null);
 
@@ -18,7 +18,7 @@ export default function ReviewSlider() {
         ref={sliderRef}
         className="flex w-full snap-x overflow-x-hidden text-sm md:text-base"
       >
-        <li className="md:h-44 w-full shrink-0 snap-start space-y-4">
+        <li className="w-full shrink-0 snap-start space-y-4 md:h-44">
           <p className="ml-4">
             From booking to check-out, Rentopia impressed me at every turn. Easy
             booking, stunning apartment, and top-notch service made my stay
@@ -38,14 +38,14 @@ export default function ReviewSlider() {
             </div>
             <div className="flex flex-col text-sm font-semibold text-white">
               Harry Kane{" "}
-              <span className="block text-xs font-normal text-secbg-sec">
+              <span className="text-secbg-sec block text-xs font-normal">
                 {" "}
                 Property Owner
               </span>
             </div>
           </div>
         </li>
-        <li className="md:h-44 w-full shrink-0 snap-start space-y-4">
+        <li className="w-full shrink-0 snap-start space-y-4 md:h-44">
           <p className="ml-4">
             From booking to check-out, Rentopia impressed me at every turn. Easy
             booking, stunning apartment, and top-notch service made my stay
@@ -65,14 +65,14 @@ export default function ReviewSlider() {
             </div>
             <div className="flex flex-col text-sm font-semibold text-white">
               Harry Kane{" "}
-              <span className="block text-xs font-normal text-secbg-sec">
+              <span className="text-secbg-sec block text-xs font-normal">
                 {" "}
                 Property Owner
               </span>
             </div>
           </div>
         </li>
-        <li className="md:h-44 w-full shrink-0 snap-start space-y-4">
+        <li className="w-full shrink-0 snap-start space-y-4 md:h-44">
           <p className="ml-4">
             From booking to check-out, Rentopia impressed me at every turn. Easy
             booking, stunning apartment, and top-notch service made my stay
@@ -92,7 +92,7 @@ export default function ReviewSlider() {
             </div>
             <div className="flex flex-col text-sm font-semibold text-white">
               Harry Kane{" "}
-              <span className="block text-xs font-normal text-secbg-sec">
+              <span className="text-secbg-sec block text-xs font-normal">
                 {" "}
                 Property Owner
               </span>

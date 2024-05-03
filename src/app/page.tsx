@@ -1,4 +1,4 @@
-import ReviewSlider from "@/components/ReviewSlider";
+import ReviewSlider from "@/components/HeroReview";
 import {
   Building,
   DollarSign,

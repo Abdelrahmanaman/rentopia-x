@@ -22,19 +22,16 @@ export function DatePicker({
     from: new Date(),
     to: addDays(new Date(), 1),
   });
-  console.log(date);
-
-  const currentDate = new Date();
 
   return (
-    <div className={cn("grid gap-2", className)}>
+    <div className={cn("grid gap-2 overflow-hidden", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
             id="date"
             variant={"outline"}
             className={cn(
-              "h-12 w-[300px] justify-start text-left font-normal",
+              "h-12 w-64 justify-start text-left font-normal md:w-[300px]",
               !date && "text-muted-foreground",
             )}
           >
@@ -74,9 +71,9 @@ export default function BookApplication() {
   const price = 280;
   const total = price * nights;
   return (
-    <article>
-      <h2 className="font-semibold">Start Booking</h2>
-      <div className="flex items-center">
+    <article className="grid h-80 w-full place-content-center space-y-4 rounded-md border  p-4 sm:w-96">
+      <h2 className="text-center font-semibold">Start Booking</h2>
+      <div className="flex items-center justify-center">
         <button
           className="bg-red-500 text-white"
           onClick={() => {
@@ -104,14 +101,14 @@ export default function BookApplication() {
           <Plus className="size-8" />
         </button>
       </div>
-      <span className="font-semibold text-main">
+      <span className="block text-center font-semibold text-main">
         €280 <span className="text-muted-foreground">per night</span>
       </span>
       <DatePicker />
       <p className="font-semibold text-muted-foreground">
         You will pay €{total} per {nights} {nights === 1 ? "night" : "nights"}
       </p>
-      <Button>Continue to Book</Button>
+      <Button className="bg-main hover:bg-main/90 h-12">Continue to Book</Button>
     </article>
   );
 }

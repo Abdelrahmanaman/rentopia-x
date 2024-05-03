@@ -61,7 +61,7 @@ export function ImageSlider({ images }: ImageSliderProps) {
           <ChevronRight className="size-14" />
         </button>
       </div>
-      <span className="font-semibold text-muted-foreground">
+      <span className="font-semibold text-muted-foreground text-xs ">
         Image {slideIndex + 1}/{images.length}
       </span>
     </div>
