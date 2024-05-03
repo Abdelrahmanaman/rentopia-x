@@ -1,18 +1,20 @@
-import { array, boolean, z } from "zod";
+import { z } from "zod";
 
 const requireString = z.string().min(1, "Required");
-const RoomSchema = z.number().int().positive();
+const RoomSchema = z
+  .number()
+  .int()
+  .positive()
+  .max(10)
+  .min(1, { message: "Room number can't be less than 1" });
 
 export const apartmentSchema = z.object({
   address: requireString.max(50),
   city: requireString.max(50),
-  rooms: RoomSchema.refine((value) => value < 1, {
-    message: "Please provide rooms number",
-  }),
-  wifi: boolean().default(false),
-  tv: boolean().default(false),
-  images: array(requireString),
+  rooms: RoomSchema,
+  wifi: z.coerce.boolean().optional(),
+  tv: z.coerce.boolean().optional(),
   description: requireString.max(3048),
 });
 
-export type ApartementType = z.infer<typeof apartmentSchema>;
+export type ApartmentType = z.infer<typeof apartmentSchema>;
