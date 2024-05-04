@@ -94,7 +94,8 @@ export function Slider({ images }: ImageSliderProps) {
           <li className="  w-full shrink-0 flex-grow snap-start  " key={index}>
             <div className="relative h-full w-full">
               <Image
-                className="block object-cover rounded-t-md"
+                priority
+                className=" rounded-t-md object-cover"
                 src={image}
                 width={300}
                 height={300}
@@ -104,8 +105,8 @@ export function Slider({ images }: ImageSliderProps) {
           </li>
         ))}
       </ul>
-      <p className="text-black sr-only">
-         Image {slideIndex + 1} of {images.length}
+      <p className="sr-only text-black">
+        Image {slideIndex + 1} of {images.length}
       </p>
 
       <div className="absolute top-1/2 flex w-full  justify-between px-4 md:absolute">

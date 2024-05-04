@@ -5,7 +5,7 @@ import { addDays, format, isAfter } from "date-fns";
 import { Calendar as CalendarIcon, Minus, Plus } from "lucide-react";
 import { DateRange } from "react-day-picker";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -65,10 +65,13 @@ export function DatePicker({
   );
 }
 
-export default function BookApplication() {
+interface BookApplicationProps {
+  price: number;
+}
+
+export default function BookApplication({ price }: BookApplicationProps) {
   const [nights, setNights] = useState(1);
 
-  const price = 280;
   const total = price * nights;
   return (
     <article className="grid h-80 w-full place-content-center space-y-4 rounded-md border  p-4 sm:w-96">
@@ -102,13 +105,15 @@ export default function BookApplication() {
         </button>
       </div>
       <span className="block text-center font-semibold text-main">
-        €280 <span className="text-muted-foreground">per night</span>
+        {formatCurrency(price)} <span className="text-muted-foreground">per night</span>
       </span>
       <DatePicker />
       <p className="font-semibold text-muted-foreground">
-        You will pay €{total} per {nights} {nights === 1 ? "night" : "nights"}
+        You will pay {formatCurrency(total)} per {nights} {nights === 1 ? "night" : "nights"}
       </p>
-      <Button className="bg-main hover:bg-main/90 h-12">Continue to Book</Button>
+      <Button className="h-12 bg-main hover:bg-main/90">
+        Continue to Book
+      </Button>
     </article>
   );
 }
