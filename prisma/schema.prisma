@@ -9,19 +9,23 @@ datasource db {
 }
 
 model User {
-  id         Int          @id @default(autoincrement())
+  id         Int         @id @default(autoincrement())
   name       String
-  email      String       @unique
+  email      String      @unique
   password   String
   favourites Favourite[]
   history    History[]
   apartments Apartment[]
+  reviews    Reviews[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
 
   @@map("users")
 }
 
 model Apartment {
-  id          Int          @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
+  slug        String      @unique
   address     String
   city        String
   rooms       Int
@@ -29,33 +33,51 @@ model Apartment {
   tv          Boolean
   description String
   images      String[]
+  price       Int
   favourites  Favourite[]
   history     History[]
-  owner       User       @relation(fields: [ownerId], references: [id])
-  ownerId     Int         
+  owner       User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId     Int
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@map("apartments")
 }
 
 model Favourite {
- id          Int        @id @default(autoincrement())
- user        User       @relation(fields: [userId], references: [id])
- userId      Int
- apartment   Apartment @relation(fields: [apartmentId], references: [id])
- apartmentId Int
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  apartment   Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  apartmentId Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
- @@unique([userId, apartmentId])
- @@map("favourites")
+  @@unique([userId, apartmentId])
+  @@map("favourites")
 }
 
-
 model History {
- id              Int        @id @default(autoincrement())
- visit_date      DateTime  
- user            User       @relation(fields: [userId], references: [id])
- userId          Int
- apartment       Apartment @relation(fields: [apartmentId], references: [id])
- apartmentId     Int
+  id          Int       @id @default(autoincrement())
+  visit_date  DateTime
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  apartment   Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  apartmentId Int
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
- @@map("history")
+  @@map("history")
+}
+
+model Reviews {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  text      String
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("reviews")
 }

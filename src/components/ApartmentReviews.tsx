@@ -155,6 +155,7 @@ export function ApartmentReviewForm() {
 }
 
 export function Submit({
+  children,
   title,
   className,
   ...props
@@ -163,6 +164,7 @@ export function Submit({
   return (
     <Button disabled={pending} className={className} {...props}>
       {pending ? <Loader className="size-6 animate-spin" /> : title}
+      {!pending && children}
     </Button>
   );
 }
