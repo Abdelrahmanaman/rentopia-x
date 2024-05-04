@@ -4,6 +4,7 @@ import { Prisma } from "@prisma/client";
 import { Slider } from "./ImageSlider";
 import { Bed } from "lucide-react";
 import Link from "next/link";
+import { PaginationBar } from "./PaginationBar";
 interface ApartmentResultProps {
   searchValue: SeachType;
   page?: string;
@@ -11,8 +12,15 @@ interface ApartmentResultProps {
 
 export default async function ApartmentResult({
   searchValue: { price, q, sortBy },
+  page = "1",
 }: ApartmentResultProps) {
+  // setting the number of query wanted
+  const pageToNumber = parseInt(page);
+  const resultPerPage = 4;
+  const skip = (pageToNumber - 1) * resultPerPage;
   const priceNumber = Number(price);
+
+  // organise the searchterm input to use the textsearch feature
   const searchTerm = q
     ?.split(" ")
     .filter((word) => word.length > 0)
@@ -36,34 +44,51 @@ export default async function ApartmentResult({
 
   //   const sortOrder: Prisma.SortOrder = sortBy === "desc" ? "desc" : "asc";
 
-  const apartments = await prisma.apartment.findMany({
+  const apartmentsPromise = prisma.apartment.findMany({
     where,
     orderBy: {
       createdAt: "desc",
     },
+    take: resultPerPage,
+    skip,
   });
 
+  // this return the amount of queries in the db
+  const countPromise = prisma.apartment.count({ where });
+
+  const [apartments, totalCount] = await Promise.all([
+    apartmentsPromise,
+    countPromise,
+  ]);
+
   return (
-    <div className="  mx-auto mt-5 grid max-w-6xl grid-cols-3 place-items-center gap-y-10">
+    <div className="mx-auto mt-5  flex max-w-6xl flex-col items-center gap-4 md:flex-row md:flex-wrap md:justify-center md:gap-4">
       {apartments.map((apartment) => (
-        <Link href={`explore/${apartment.slug}`} key={apartment.slug}>
-          <article className=" rounded-md p-2  shadow-sm shadow-main">
-            <div>
-              <Slider images={apartment.images} />
-            </div>
-            <div className="text-muted-foreground">
-              <p className="text-wrap">{apartment.address}</p>
-              <span className="font-semibold text-main">
-                {apartment.price}/<span className="font-normal">Months</span>
-              </span>
-            </div>
+        <article
+          key={apartment.slug}
+          className=" rounded-md p-2 border shadow-sm "
+        >
+          <Slider images={apartment.images} />
+          <Link className="block w-full" href={`explore/${apartment.slug}`}>
+            <p className="text-wrap">{apartment.address}</p>
+            <span className="font-semibold text-main">
+              {apartment.price}/<span className="font-normal">Months</span>
+            </span>
             <span className="flex items-center gap-1 text-muted-foreground">
               <Bed className="size-5 text-muted-foreground" />
               {apartment.rooms}
             </span>
-          </article>
-        </Link>
+          </Link>
+        </article>
       ))}
+
+      <div className="w-full my-2">
+        <PaginationBar
+          searchValue={{ q, sortBy, price }}
+          currentPage={parseInt(page)}
+          totalCount={totalCount}
+        />
+      </div>
     </div>
   );
 }

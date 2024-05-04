@@ -13,15 +13,14 @@ interface PageProps {
 export default async function page({
   searchParams: { q, price, sortBy, page },
 }: PageProps) {
-  const searchValue = { q, price, sortBy };
+  const searchValue = { q, price, sortBy, page };
 
-  const apartments = [];
   return (
     <section>
       <div>
         <SearchFilter searchValue={searchValue} />
       </div>
-      <ApartmentResult searchValue={searchValue} />
+      <ApartmentResult searchValue={searchValue} page={page} />
     </section>
   );
 }

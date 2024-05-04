@@ -34,7 +34,7 @@ const searchAction = async (formData: FormData) => {
 
 export default function SearchFilter({ searchValue }: SearchFilterProps) {
   return (
-    <div className="mx-auto mt-2 flex max-w-4xl items-center justify-center rounded-md border border-main p-4">
+    <div className="mx-auto mt-2 flex max-w-4xl items-center justify-center rounded-md md:border border-b  border-main p-4">
       <form
         action={searchAction}
         className="flex flex-col gap-4 md:flex-row md:items-center"

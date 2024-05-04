@@ -33,7 +33,7 @@ async function main() {
         data: {
             address: "123 Main St",
             city: "New York",
-            slug: "apt3",
+            slug: "apt4",
             rooms: 2,
             wifi: true,
             tv: true,
