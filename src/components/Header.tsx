@@ -2,10 +2,13 @@ import Link from "next/link";
 import MenuItems from "./MenuItems";
 import { auth, signIn, signOut } from "@/auth";
 import { Button } from "./ui/button";
+import Image from "next/image";
+import { LogOut, Menu } from "lucide-react";
+import DropMenu from "./DropMenu";
+import { login, logout } from "@/actions/actions";
 export default async function Header() {
   const session = await auth();
   const user = session?.user;
-  console.log(user);
   return (
     <header className="bg-main p-6 text-white">
       <nav className="mx-auto flex max-w-6xl items-center justify-between">
@@ -40,12 +43,7 @@ export default async function Header() {
           </li>
           <li>
             {user ? (
-              <Link
-                className="underline-offset-4 hover:underline "
-                href={"/profile"}
-              >
-                Profile
-              </Link>
+                <DropMenu user={user} />
             ) : (
               <SignIn />
             )}
@@ -58,13 +56,8 @@ export default async function Header() {
 
 export function SignIn() {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signIn();
-      }}
-    >
-      <Button className="bg-orange-500 hover:underline" type="submit">
+    <form action={login}>
+      <Button className="bg-orange-600 hover:bg-orange-500" type="submit">
         Sign in
       </Button>
     </form>
@@ -73,13 +66,10 @@ export function SignIn() {
 
 export function SignOut() {
   return (
-    <form
-      action={async () => {
-        "use server";
-        await signOut();
-      }}
-    >
-      <button type="submit">Sign Out</button>
+    <form action={logout}>
+      <button className="flex items-center gap-2" type="submit">
+        <LogOut className="size-5"/> Sign Out
+      </button>
     </form>
   );
 }
