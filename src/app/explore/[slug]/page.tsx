@@ -15,7 +15,16 @@ interface PageProps {
 }
 
 export default async function page({ params: { slug } }: PageProps) {
-  const apartment = await prisma.apartment.findUnique({ where: { slug } });
+  const apartment = await prisma.apartment.findUnique({
+    where: { slug },
+    include: {
+      Reviews: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  });
   return apartment ? (
     <section className="mx-auto mb-4 max-w-6xl px-4 md:px-0">
       <h1 className="my-2 text-center text-lg font-semibold text-muted-foreground">
@@ -37,7 +46,7 @@ export default async function page({ params: { slug } }: PageProps) {
         <GoogleMaps />
         <ApartmentReviewForm />
       </div>
-      <ApartmentReviews />
+      <ApartmentReviews reviews={apartment.Reviews} />
     </section>
   ) : (
     <div>Apartment not found</div>

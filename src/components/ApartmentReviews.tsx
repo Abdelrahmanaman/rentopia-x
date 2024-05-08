@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
 import { Textarea } from "./ui/textarea";
 import { Label } from "./ui/label";
@@ -9,7 +9,15 @@ import { Button } from "./ui/button";
 import { addReview } from "@/app/explore/[slug]/actions";
 import { useForm } from "react-hook-form";
 import { useFormStatus } from "react-dom";
-export default function ApartmentReviews() {
+import { Reviews, User } from "@prisma/client";
+
+interface ReviewWithUser extends Reviews {
+  user: User;
+}
+interface ApartmentReviewProps {
+  reviews: ReviewWithUser[];
+}
+export default function ApartmentReviews({ reviews }: ApartmentReviewProps) {
   const sliderRef = useRef<HTMLUListElement>(null);
 
   const handleReviewScroll = (direction: string) => {
@@ -54,78 +62,26 @@ export default function ApartmentReviews() {
         ref={sliderRef}
         className="flex w-full snap-x gap-4 overflow-x-hidden text-sm md:text-base"
       >
-        <li className="w-full shrink-0 snap-start space-y-4 rounded border p-4 px-4 md:h-64 md:w-[30rem]">
-          <div className="space-y-2">
-            <Image
-              className="block rounded-full object-cover"
-              src="/user.svg"
-              alt="user"
-              width={38}
-              height={38}
-            />
-            <span className="block font-semibold text-main">Kent Clark</span>
-          </div>
-          <p>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit officia consequat duis enim velit mollit. Exercitation
-            veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
-            ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-          </p>
-        </li>
-        <li className="w-full shrink-0 snap-start space-y-4 rounded border p-4 md:h-64 md:w-[30rem]">
-          <div className="space-y-2">
-            <Image
-              className="block rounded-full object-cover"
-              src="/user.svg"
-              alt="user"
-              width={38}
-              height={38}
-            />
-            <span className="block font-semibold text-main">Kent Clark</span>
-          </div>
-          <p>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit officia consequat duis enim velit mollit. Exercitation
-            veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
-            ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-          </p>
-        </li>
-        <li className="w-full shrink-0 snap-start space-y-4 rounded border p-4 md:h-64 md:w-[30rem]">
-          <div className="space-y-2">
-            <Image
-              className="block rounded-full object-cover"
-              src="/user.svg"
-              alt="user"
-              width={38}
-              height={38}
-            />
-            <span className="block font-semibold text-main">Kent Clark</span>
-          </div>
-          <p>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit officia consequat duis enim velit mollit. Exercitation
-            veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
-            ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-          </p>
-        </li>
-        <li className="w-full shrink-0 snap-start space-y-4 rounded border p-4 md:h-64 md:w-[30rem]">
-          <div className="space-y-2">
-            <Image
-              className="block rounded-full object-cover"
-              src="/user.svg"
-              alt="user"
-              width={38}
-              height={38}
-            />
-            <span className="block font-semibold text-main">Kent Clark</span>
-          </div>
-          <p>
-            Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet
-            sint. Velit officia consequat duis enim velit mollit. Exercitation
-            veniam consequat sunt nostrud amet. Amet minim mollit non deserunt
-            ullamco est sit aliqua dolor do amet sint. Velit officia consequat
-          </p>
-        </li>
+        {reviews.map((review) => (
+          <li
+            key={review.id}
+            className="w-full shrink-0 snap-start space-y-4 rounded border p-4 px-4 md:h-64 md:w-[30rem]"
+          >
+            <div className="space-y-2">
+              <Image
+                className="block rounded-full object-cover"
+                src="/user.svg"
+                alt="user"
+                width={38}
+                height={38}
+              />
+              <span className="block font-semibold text-main">
+                {review.user.name}
+              </span>
+            </div>
+            <p>{review.text}</p>
+          </li>
+        ))}
       </ul>
     </article>
   );

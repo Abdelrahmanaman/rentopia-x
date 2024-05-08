@@ -37,6 +37,7 @@ export function ImageSlider({ images }: ImageSliderProps) {
           >
             <div className="relative h-full w-full">
               <Image
+                priority
                 className=" object-cover"
                 src={image}
                 fill

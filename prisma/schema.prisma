@@ -36,10 +36,11 @@ model Apartment {
   price       Int
   favourites  Favourite[]
   history     History[]
-  owner       User        @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  ownerId     Int
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  Reviews     Reviews[]
+  owner     User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId   Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("apartments")
 }
@@ -71,13 +72,15 @@ model History {
 }
 
 model Reviews {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    Int
-  text      String
-  date      DateTime @default(now())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  apartment   Apartment @relation(fields: [apartmentId], references: [id], onDelete: Cascade)
+  apartmentId Int
+  text        String
+  date        DateTime  @default(now())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@map("reviews")
 }
