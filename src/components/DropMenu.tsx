@@ -11,7 +11,7 @@ import { User } from "next-auth";
 import Image from "next/image";
 import { SignOut } from "./Header";
 import Link from "next/link";
-import { Settings } from "lucide-react";
+import { Lock, Settings } from "lucide-react";
 
 interface DropdownProps {
   user: User;
@@ -35,8 +35,17 @@ export default function DropMenu({ user }: DropdownProps) {
         <DropdownMenuItem>
           <Link className="flex items-center gap-2" href={"/profile"}>
             <Settings className="size-5" />
-            Profile</Link>
+            Profile
+          </Link>
         </DropdownMenuItem>
+        {user.role === "admin" && (
+          <DropdownMenuItem>
+            <Link className="flex items-center gap-2" href={"/admin"}>
+              <Lock className="size-5" />
+              Admin
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem>
           <SignOut />
         </DropdownMenuItem>

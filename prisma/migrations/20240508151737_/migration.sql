@@ -5,6 +5,7 @@ CREATE TABLE "users" (
     "email" TEXT NOT NULL,
     "emailVerified" TIMESTAMP(3),
     "image" TEXT,
+    "role" TEXT NOT NULL DEFAULT 'user',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 

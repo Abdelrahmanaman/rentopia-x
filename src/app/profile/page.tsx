@@ -4,24 +4,10 @@ import { auth } from "@/auth";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { log } from "console";
+import { redirect } from "next/navigation";
+import { updateProfile } from "@/actions/actions";
 
-const changeName = async (formData: FormData) => {
-  "use server";
-  const session = await auth();
-  const userId = session?.user?.id
-  if (!userId) throw new Error("Unauthorized");
 
-  await prisma.user.update({
-    where: {
-      id: userId
-    },
-    data: {
-      name: formData.get("name") as string,
-    }
-   
-  });
-};
 
 export default async function page() {
   const session = await auth();
@@ -35,14 +21,17 @@ export default async function page() {
     });
   }
 
-  console.log(user);
+  if(!user){
+    redirect("/api/auth/signin?callbackUrl=/profile");
+  }
+  console.log(userDB)
 
   return (
     <section className="mx-auto max-w-6xl">
-      <form action="" className="space-y-4 py-4">
+      <form action={updateProfile} className="space-y-4 py-4">
         <Label>Name</Label>
         <Input
-          className="max-w-44"
+          className="max-w-64"
           type="text"
           name="name"
           defaultValue={userDB?.name || ""}
@@ -50,6 +39,7 @@ export default async function page() {
         <Button type="submit" className="bg-main hover:bg-main/80">
           Save changes
         </Button>
+      
       </form>
     </section>
   );
