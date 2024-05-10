@@ -11,7 +11,7 @@ import { User } from "next-auth";
 import Image from "next/image";
 import { SignOut } from "./Header";
 import Link from "next/link";
-import { Lock, Settings } from "lucide-react";
+import { Heart, HeartOff, Lock, Settings } from "lucide-react";
 
 interface DropdownProps {
   user: User;
@@ -46,6 +46,12 @@ export default function DropMenu({ user }: DropdownProps) {
             </Link>
           </DropdownMenuItem>
         )}
+        <DropdownMenuItem>
+          <Link className="flex items-center gap-2" href={"/profile/favourites"}>
+            <Heart className="size-5" />
+            Favourites
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem>
           <SignOut />
         </DropdownMenuItem>

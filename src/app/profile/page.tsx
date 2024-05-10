@@ -24,7 +24,6 @@ export default async function page() {
   if(!user){
     redirect("/api/auth/signin?callbackUrl=/profile");
   }
-  console.log(userDB)
 
   return (
     <section className="mx-auto max-w-6xl">

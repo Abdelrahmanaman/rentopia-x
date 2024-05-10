@@ -1,10 +1,9 @@
 import { SeachType } from "@/lib/validation";
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { Slider } from "./ImageSlider";
-import { Bed } from "lucide-react";
-import Link from "next/link";
 import { PaginationBar } from "./PaginationBar";
+import ApartmentItems from "./ApartmentItems";
+
 interface ApartmentResultProps {
   searchValue: SeachType;
   page?: string;
@@ -49,6 +48,9 @@ export default async function ApartmentResult({
     orderBy: {
       createdAt: "desc",
     },
+    include: {
+      favourites: true,
+    },
     take: resultPerPage,
     skip,
   });
@@ -61,28 +63,19 @@ export default async function ApartmentResult({
     countPromise,
   ]);
 
+  // console.log(apartments);
+
   return (
     <div className="mx-auto mt-5  flex max-w-6xl flex-col items-center gap-4 md:flex-row md:flex-wrap md:justify-center md:gap-4">
       {apartments.map((apartment) => (
-        <article
-          key={apartment.slug}
-          className=" rounded-md p-2 border shadow-sm "
-        >
-          <Slider images={apartment.images} />
-          <Link className="block w-full" href={`explore/${apartment.slug}`}>
-            <p className="text-wrap">{apartment.address}</p>
-            <span className="font-semibold text-main">
-              {apartment.price}/<span className="font-normal">Months</span>
-            </span>
-            <span className="flex items-center gap-1 text-muted-foreground">
-              <Bed className="size-5 text-muted-foreground" />
-              {apartment.rooms}
-            </span>
-          </Link>
-        </article>
+        <ApartmentItems
+          key={apartment.id}
+          apartment={apartment}
+          favourites={false}
+        />
       ))}
 
-      <div className="w-full my-2">
+      <div className="my-2 w-full">
         <PaginationBar
           searchValue={{ q, sortBy, price }}
           currentPage={parseInt(page)}
