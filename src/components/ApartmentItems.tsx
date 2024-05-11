@@ -20,7 +20,7 @@ export default function ApartmentItems({
   return (
     <article className=" flex-grow-0 rounded-md border p-2 shadow-sm">
       <Slider images={apartment.images} />
-      <Link className="block w-full" href={`explore/${apartment.slug}`}>
+      <Link className="block w-full" href={`/explore/${apartment.slug}`}>
         <p className="text-wrap">{apartment.address}</p>
         <span className="font-semibold text-main">
           {apartment.price}/<span className="font-normal">Months</span>
