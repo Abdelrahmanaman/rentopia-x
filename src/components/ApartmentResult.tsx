@@ -71,7 +71,7 @@ export default async function ApartmentResult({
         <ApartmentItems
           key={apartment.id}
           apartment={apartment}
-          favourites={false}
+          favourite={false}
         />
       ))}
 
