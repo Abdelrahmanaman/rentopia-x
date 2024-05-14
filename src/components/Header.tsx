@@ -1,14 +1,14 @@
+"use client";
 import Link from "next/link";
 import MenuItems from "./MenuItems";
-import { auth, signIn, signOut } from "@/auth";
+import { signIn, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
-import Image from "next/image";
-import { LogOut, Menu } from "lucide-react";
+import { LogOut } from "lucide-react";
 import DropMenu from "./DropMenu";
 import { login, logout } from "@/actions/actions";
-export default async function Header() {
-  const session = await auth();
-  const user = session?.user;
+export default function Header() {
+  const session = useSession();
+  const user = session.data?.user;
   return (
     <header className="bg-main p-6 text-white">
       <nav className="mx-auto flex max-w-6xl items-center justify-between">
@@ -41,7 +41,17 @@ export default async function Header() {
               Contact us
             </Link>
           </li>
-          <li>{user ? <DropMenu user={user} /> : <SignIn />}</li>
+          <li>
+            {user && <DropMenu user={user} />}
+            {!user && session.status !== "loading" && (
+              <Button
+                className="bg-orange-600 hover:bg-orange-500"
+                onClick={() => signIn()}
+              >
+                Sign in
+              </Button>
+            )}
+          </li>
         </ul>
       </nav>
     </header>
@@ -62,7 +72,7 @@ export function SignOut() {
   return (
     <form action={logout}>
       <button className="flex items-center gap-2" type="submit">
-        <LogOut className="size-5"/> Sign Out
+        <LogOut className="size-5" /> Sign Out
       </button>
     </form>
   );
