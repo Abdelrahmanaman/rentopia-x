@@ -41,13 +41,10 @@ export default async function Header() {
               Contact us
             </Link>
           </li>
-          <li>
-            {user ? (
-                <DropMenu user={user} />
-            ) : (
-              <SignIn />
-            )}
-          </li>
+          <li>{user ? <DropMenu user={user} /> : <SignIn />}</li>
+          <Link
+            href={"https://rentopia-x.vercel.app/api/auth/callback/google"}
+          ></Link>
         </ul>
       </nav>
     </header>
