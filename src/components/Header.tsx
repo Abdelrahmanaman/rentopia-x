@@ -44,7 +44,7 @@ export default async function Header() {
           <li>{user ? <DropMenu user={user} /> : <SignIn />}</li>
           <Link
             href={"https://rentopia-x.vercel.app/api/auth/callback/google"}
-          ></Link>
+          >Clcik</Link>
         </ul>
       </nav>
     </header>
